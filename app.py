@@ -8,6 +8,9 @@ app = Flask(__name__)
 
 def sort_by_score (val) : 
     return val['score']
+@app.route('/') 
+def home():
+    return "hello world"
 
 @app.route('/findBuddy', methods=['post'])
 def recommend():
@@ -34,7 +37,7 @@ def recommend():
             
             score += similarity
         
-        percent_score = round ((score/len(user_favourites[user_idx]['favourites']))*100, 1)
+        percent_score = ((score/len(user_favourites[user_idx]['favourites']))*100)
         users_match_list.append({'username': user['id'], 'score' : percent_score })
 
     users_match_list.sort(key=sort_by_score, reverse=True)
